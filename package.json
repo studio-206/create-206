@@ -9,7 +9,7 @@
   "description": "Create Studio 206 apps with one command",
   "repository": {
     "type": "git",
-    "url": "https://github.com/studio206/create-206"
+    "url": "https://github.com/studio-206/create-206"
   },
   "author": "Studio 206 Team <hello@studio206.dev>",
   "license": "MIT",

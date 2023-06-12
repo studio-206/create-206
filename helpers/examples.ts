@@ -77,7 +77,7 @@ export function existsInRepo(nameOrUrl: string): Promise<boolean> {
     return isUrlOk(url.href);
   } catch {
     return isUrlOk(
-      `https://api.github.com/repos/studio206/create-206/contents/templates/${encodeURIComponent(
+      `https://api.github.com/repos/studio-206/create-206/contents/templates/${encodeURIComponent(
         nameOrUrl
       )}`
     );
@@ -119,7 +119,7 @@ export async function downloadAndExtractExample(root: string, name: string) {
   }
 
   const tempFile = await downloadTar(
-    "https://codeload.github.com/studio206/create-206/tar.gz/main"
+    "https://codeload.github.com/studio-206/create-206/tar.gz/main"
   );
 
   await tar.x({

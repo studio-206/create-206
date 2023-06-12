@@ -1,6 +1,6 @@
 # Create Studio 206 App
 
-The easiest way to get started with the Studio 206 stack is by using `create-206-app`. This CLI tool enables you to quickly start building a new Studio 206 application, with everything set up for you. You can create a new app using the default Next.js template, or by using one of the [Studio 206 templates](https://github.com/studio206/create-206/tree/main/templates). To get started, use the following command:
+The easiest way to get started with the Studio 206 stack is by using `create-206-app`. This CLI tool enables you to quickly start building a new Studio 206 application, with everything set up for you. You can create a new app using the default Next.js template, or by using one of the [Studio 206 templates](https://github.com/studio-206/create-206/tree/main/templates). To get started, use the following command:
 
 ### Interactive
 

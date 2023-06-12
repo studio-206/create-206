@@ -159,6 +159,7 @@ export async function createApp({
           typeof (err as { message?: unknown }).message === "string"
         );
       }
+      console.error(reason);
       throw new DownloadError(
         isErrorLike(reason) ? reason.message : reason + ""
       );

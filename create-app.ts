@@ -6,60 +6,31 @@ import path from "path";
 import {
   downloadAndExtractExample,
   downloadAndExtractRepo,
-  getRepoInfo,
   existsInRepo,
+  getRepoInfo,
   hasRepo,
   RepoInfo,
 } from "./helpers/examples";
-import { makeDir } from "./helpers/make-dir";
 import { tryGitInit } from "./helpers/git";
 import { install } from "./helpers/install";
 import { isFolderEmpty } from "./helpers/is-folder-empty";
 import { getOnline } from "./helpers/is-online";
 import { isWriteable } from "./helpers/is-writeable";
-import type { PackageManager } from "./helpers/get-pkg-manager";
-
-import {
-  getTemplateFile,
-  installTemplate,
-  TemplateMode,
-  TemplateType,
-} from "./templates";
+import { makeDir } from "./helpers/make-dir";
 
 export class DownloadError extends Error {}
 
 export async function createApp({
   appPath,
-  packageManager,
   example,
   examplePath,
-  typescript,
-  tailwind,
-  eslint,
-  appRouter,
-  srcDir,
-  importAlias,
 }: {
   appPath: string;
-  packageManager: PackageManager;
   example?: string;
   examplePath?: string;
-  typescript: boolean;
-  tailwind: boolean;
-  eslint: boolean;
-  appRouter: boolean;
-  srcDir: boolean;
-  importAlias: string;
 }): Promise<void> {
   let repoInfo: RepoInfo | undefined;
-  const mode: TemplateMode = typescript ? "ts" : "js";
-  const template: TemplateType = appRouter
-    ? tailwind
-      ? "app-tw"
-      : "app"
-    : tailwind
-    ? "default-tw"
-    : "default";
+  const packageManager = "yarn";
 
   if (example) {
     let repoUrl: URL | undefined;
@@ -109,10 +80,10 @@ export async function createApp({
 
       if (!found) {
         console.error(
-          `Could not locate an example named ${chalk.red(
+          `Could not locate a template named ${chalk.red(
             `"${example}"`
           )}. It could be due to the following:\n`,
-          `1. Your spelling of example ${chalk.red(
+          `1. Your spelling of template ${chalk.red(
             `"${example}"`
           )} might be incorrect.\n`,
           `2. You might not be connected to the internet or you are behind a proxy.`
@@ -145,7 +116,7 @@ export async function createApp({
   const isOnline = !useYarn || (await getOnline());
   const originalDirectory = process.cwd();
 
-  console.log(`Creating a new Next.js app in ${chalk.green(root)}.`);
+  console.log(`Creating a new Studio 206 app in ${chalk.green(root)}.`);
   console.log();
 
   process.chdir(root);
@@ -193,22 +164,22 @@ export async function createApp({
       );
     }
     // Copy `.gitignore` if the application did not provide one
-    const ignorePath = path.join(root, ".gitignore");
-    if (!fs.existsSync(ignorePath)) {
-      fs.copyFileSync(
-        getTemplateFile({ template, mode, file: "gitignore" }),
-        ignorePath
-      );
-    }
+    // const ignorePath = path.join(root, ".gitignore");
+    // if (!fs.existsSync(ignorePath)) {
+    //   fs.copyFileSync(
+    //     getTemplateFile({ template, mode, file: "gitignore" }),
+    //     ignorePath
+    //   );
+    // }
 
     // Copy `next-env.d.ts` to any example that is typescript
-    const tsconfigPath = path.join(root, "tsconfig.json");
-    if (fs.existsSync(tsconfigPath)) {
-      fs.copyFileSync(
-        getTemplateFile({ template, mode: "ts", file: "next-env.d.ts" }),
-        path.join(root, "next-env.d.ts")
-      );
-    }
+    // const tsconfigPath = path.join(root, "tsconfig.json");
+    // if (fs.existsSync(tsconfigPath)) {
+    //   fs.copyFileSync(
+    //     getTemplateFile({ template, mode: "ts", file: "next-env.d.ts" }),
+    //     path.join(root, "next-env.d.ts")
+    //   );
+    // }
 
     hasPackageJson = fs.existsSync(packageJsonPath);
     if (hasPackageJson) {
@@ -223,18 +194,21 @@ export async function createApp({
      * If an example repository is not provided for cloning, proceed
      * by installing from a template.
      */
-    await installTemplate({
-      appName,
-      root,
-      template,
-      mode,
-      packageManager,
-      isOnline,
-      tailwind,
-      eslint,
-      srcDir,
-      importAlias,
-    });
+    console.error("You need to specify an example to create the app from.");
+    process.exit(1);
+
+    // await installTemplate({
+    //   appName,
+    //   root,
+    //   template,
+    //   mode,
+    //   packageManager,
+    //   isOnline,
+    //   tailwind,
+    //   eslint,
+    //   srcDir,
+    //   importAlias,
+    // });
   }
 
   if (tryGitInit(root)) {

@@ -2,7 +2,7 @@ import { Button } from "@/components/Button";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Web - Studio 206 Example",
+  title: "Studio 206 Template",
 };
 
 export default function Home() {

@@ -1,6 +1,6 @@
 # Create Studio 206 App
 
-The easiest way to get started with the Studio 206 stack is by using `create-206-app`. This CLI tool enables you to quickly start building a new Studio 206 application, with everything set up for you. You can create a new app using the default Next.js template, or by using one of the [Studio 206 examples](https://github.com/studio206/create-206/tree/main/examples). To get started, use the following command:
+The easiest way to get started with the Studio 206 stack is by using `create-206-app`. This CLI tool enables you to quickly start building a new Studio 206 application, with everything set up for you. You can create a new app using the default Next.js template, or by using one of the [Studio 206 templates](https://github.com/studio206/create-206/tree/main/templates). To get started, use the following command:
 
 ### Interactive
 
@@ -74,4 +74,4 @@ Options:
 - **Interactive Experience**: Running `npx create-206-app@latest` (with no arguments) launches an interactive experience that guides you through setting up a project.
 - **Zero Dependencies**: Initializing a project is as quick as one second. Create Studio 206 app has zero dependencies.
 - **Offline Support**: Create Studio 206 app will automatically detect if you're offline and bootstrap your project using your local package cache.
-- **Support for Examples**: Create Studio 206 app can bootstrap your application using an example from the Next.js examples collection (e.g. `npx create-206-app --example api-routes`).
+- **Support for Templates**: Create Studio 206 app can bootstrap your application using an example from the Studio 206 templates collection (e.g. `npx create-206-app --example with-sanity`).

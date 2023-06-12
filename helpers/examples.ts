@@ -77,7 +77,7 @@ export function existsInRepo(nameOrUrl: string): Promise<boolean> {
     return isUrlOk(url.href);
   } catch {
     return isUrlOk(
-      `https://api.github.com/repos/studio206/create-206/contents/examples/${encodeURIComponent(
+      `https://api.github.com/repos/studio206/create-206/contents/templates/${encodeURIComponent(
         nameOrUrl
       )}`
     );
@@ -119,14 +119,14 @@ export async function downloadAndExtractExample(root: string, name: string) {
   }
 
   const tempFile = await downloadTar(
-    "https://codeload.github.com/vercel/next.js/tar.gz/canary"
+    "https://codeload.github.com/studio206/create-206/tar.gz/main"
   );
 
   await tar.x({
     file: tempFile,
     cwd: root,
     strip: 2 + name.split("/").length,
-    filter: (p) => p.includes(`next.js-canary/examples/${name}/`),
+    filter: (p) => p.includes(`create-206-main/templates/${name}/`),
   });
 
   await fs.unlink(tempFile);

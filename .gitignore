@@ -35,9 +35,9 @@ test/traces
 **/.#*
 .nvmrc
 
-# examples
-examples/**/out
-examples/**/.env*.local
+# templates
+templates/**/out
+templates/**/.env*.local
 
 pr-stats.md
 test-timings.json

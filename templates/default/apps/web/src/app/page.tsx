@@ -1,24 +1,5 @@
-import { Metadata } from "next";
 import { Button } from "@/components/Button";
-import { Card } from "@/components/Card";
-
-const CARD_CONTENT = [
-  {
-    title: "Caching Tasks",
-    href: "https://turbo.build/repo/docs/core-concepts/caching",
-    cta: "Read More",
-  },
-  {
-    title: "Running Tasks",
-    href: "https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks",
-    cta: "Read More",
-  },
-  {
-    title: "Configuration Options",
-    href: "https://turbo.build/repo/docs/reference/configuration",
-    cta: "Read More",
-  },
-];
+import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Web - Studio 206 Example",
@@ -27,21 +8,14 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center py-2">
-      <main className="mx-auto w-auto px-4 pt-16 pb-8 sm:pt-24 lg:px-8">
-        <h1 className="mx-auto text-center text-6xl font-extrabold tracking-tight text-white sm:text-7xl lg:text-8xl xl:text-8xl">
-          Web
-          <span className="block bg-gradient-to-r from-brandred to-brandblue bg-clip-text text-transparent px-2">
-            Turborepo Example
-          </span>
+      <main className="flex w-auto flex-col items-center justify-center px-4 pb-8 pt-16 sm:pt-24 lg:p-8">
+        <img src="/studio206.svg" className="h-10 w-auto" />
+        <h1 className="my-12 text-center text-6xl font-medium uppercase tracking-wide text-white sm:text-7xl lg:text-8xl">
+          Build beautiful
+          <span className="text-brandblue block px-2">digital products</span>
         </h1>
-        <div className="mx-auto mt-5 max-w-xl sm:flex sm:justify-center md:mt-8">
+        <div className="mt-4 max-w-xl sm:flex sm:justify-center">
           <Button />
-        </div>
-
-        <div className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-4 place-content-evenly">
-          {CARD_CONTENT.map((card) => (
-            <Card key={card.title} {...card} />
-          ))}
         </div>
       </main>
     </div>

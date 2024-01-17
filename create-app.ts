@@ -142,6 +142,13 @@ export async function createApp({
         await retry(() => downloadAndExtractExample(root, example), {
           retries: 3,
         });
+
+        const sharedFolder = path.join(__dirname, "shared");
+
+        const sharedConfig = path.join(sharedFolder, "config");
+
+        // Copy shared folder to root, if it doesn't exist in the template
+        fs.cpSync(sharedConfig, root, { force: false });
       }
     } catch (reason) {
       function isErrorLike(err: unknown): err is { message: string } {

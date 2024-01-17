@@ -124,9 +124,7 @@ export async function downloadAndExtractExample(
     cwd: root,
     strip: 2 + name.split("/").length,
     filter: p =>
-      p.includes(
-        `create-206-${defaultedBranch.replace("/", "-")}/templates/${name}/${routerName}/`,
-      ),
+      p.includes(`create-206-${defaultedBranch.replace("/", "-")}/templates/${name}/${routerName}`),
   });
 
   await fs.unlink(tempFile);

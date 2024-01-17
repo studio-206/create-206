@@ -1,17 +1,19 @@
 #!/usr/bin/env node
+
 /* eslint-disable import/no-extraneous-dependencies */
+import { createApp, DownloadError } from "./create-app";
+import { getPkgManager } from "./helpers/get-pkg-manager";
+import { isFolderEmpty } from "./helpers/is-folder-empty";
+import { validateNpmName } from "./helpers/validate-pkg";
+import packageJson from "./package.json";
 import chalk from "chalk";
+import ciInfo from "ci-info";
 import Commander from "commander";
 import Conf from "conf";
+import fs from "fs";
 import path from "path";
 import prompts from "prompts";
 import checkForUpdate from "update-check";
-import { createApp, DownloadError } from "./create-app";
-import { getPkgManager } from "./helpers/get-pkg-manager";
-import { validateNpmName } from "./helpers/validate-pkg";
-import packageJson from "./package.json";
-import { isFolderEmpty } from "./helpers/is-folder-empty";
-import fs from "fs";
 
 let projectPath: string = "";
 
@@ -34,7 +36,7 @@ const program = new Commander.Command(packageJson.name)
   .version(packageJson.version)
   .arguments("<project-directory>")
   .usage(`${chalk.green("<project-directory>")} [options]`)
-  .action((name) => {
+  .action(name => {
     projectPath = name;
   })
   .option(
@@ -44,7 +46,7 @@ const program = new Commander.Command(packageJson.name)
   An template to bootstrap the app with. You can use an template name
   from the Create 206 repo or a GitHub URL. The URL can use
   any branch and/or subdirectory
-`
+`,
   )
   .option(
     "--template-path <path-to-template>",
@@ -54,14 +56,14 @@ const program = new Commander.Command(packageJson.name)
   a slash (e.g. bug/fix-1) and the path to the template (e.g. foo/bar).
   In this case, you must specify the path to the template separately:
   --template-path foo/bar
-`
+`,
   )
   .option(
     "--reset-preferences",
     `
 
   Explicitly tell the CLI to reset any stored preferences
-`
+`,
   )
   .allowUnknownOption()
   .parse(process.argv);
@@ -94,7 +96,7 @@ async function run(): Promise<void> {
       name: "path",
       message: "What is your project named?",
       initial: "my-app",
-      validate: (name) => {
+      validate: name => {
         const validation = validateNpmName(path.basename(path.resolve(name)));
         if (validation.valid) {
           return true;
@@ -114,7 +116,7 @@ async function run(): Promise<void> {
         `  ${chalk.cyan(program.name())} ${chalk.green("<project-directory>")}\n` +
         "For example:\n" +
         `  ${chalk.cyan(program.name())} ${chalk.green("my-next-app")}\n\n` +
-        `Run ${chalk.cyan(`${program.name()} --help`)} to see all options.`
+        `Run ${chalk.cyan(`${program.name()} --help`)} to see all options.`,
     );
     process.exit(1);
   }
@@ -126,11 +128,11 @@ async function run(): Promise<void> {
   if (!valid) {
     console.error(
       `Could not create a project called ${chalk.red(
-        `"${projectName}"`
-      )} because of npm naming restrictions:`
+        `"${projectName}"`,
+      )} because of npm naming restrictions:`,
     );
 
-    problems!.forEach((p) => console.error(`    ${chalk.red.bold("*")} ${p}`));
+    problems!.forEach(p => console.error(`    ${chalk.red.bold("*")} ${p}`));
     process.exit(1);
   }
 
@@ -409,7 +411,7 @@ async function notifyUpdate(): Promise<void> {
           "\n" +
           "You can update by running: " +
           chalk.cyan(updateMessage) +
-          "\n"
+          "\n",
       );
     }
     process.exit();
@@ -420,7 +422,7 @@ async function notifyUpdate(): Promise<void> {
 
 run()
   .then(notifyUpdate)
-  .catch(async (reason) => {
+  .catch(async reason => {
     console.log();
     console.log("Aborting installation.");
     if (reason.command) {

@@ -71,10 +71,10 @@ const program = new Commander.Command(packageJson.name)
 const packageManager = !!program.useNpm
   ? "npm"
   : !!program.usePnpm
-  ? "pnpm"
-  : !!program.useYarn
-  ? "yarn"
-  : getPkgManager();
+    ? "pnpm"
+    : !!program.useYarn
+      ? "yarn"
+      : getPkgManager();
 
 async function run(): Promise<void> {
   const conf = new Conf({ projectName: "create-next-app" });
@@ -403,8 +403,8 @@ async function notifyUpdate(): Promise<void> {
         packageManager === "yarn"
           ? "yarn global add create-next-app"
           : packageManager === "pnpm"
-          ? "pnpm add -g create-next-app"
-          : "npm i -g create-next-app";
+            ? "pnpm add -g create-next-app"
+            : "npm i -g create-next-app";
 
       console.log(
         chalk.yellow.bold("A new version of `create-next-app` is available!") +

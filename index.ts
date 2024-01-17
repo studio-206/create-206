@@ -10,7 +10,6 @@ import { createApp, DownloadError } from "./create-app";
 import { getPkgManager } from "./helpers/get-pkg-manager";
 import { validateNpmName } from "./helpers/validate-pkg";
 import packageJson from "./package.json";
-import ciInfo from "ci-info";
 import { isFolderEmpty } from "./helpers/is-folder-empty";
 import fs from "fs";
 
@@ -70,10 +69,10 @@ const program = new Commander.Command(packageJson.name)
 const packageManager = !!program.useNpm
   ? "npm"
   : !!program.usePnpm
-  ? "pnpm"
-  : !!program.useYarn
-  ? "yarn"
-  : getPkgManager();
+    ? "pnpm"
+    : !!program.useYarn
+      ? "yarn"
+      : getPkgManager();
 
 async function run(): Promise<void> {
   const conf = new Conf({ projectName: "create-next-app" });
@@ -112,9 +111,7 @@ async function run(): Promise<void> {
   if (!projectPath) {
     console.log(
       "\nPlease specify the project directory:\n" +
-        `  ${chalk.cyan(program.name())} ${chalk.green(
-          "<project-directory>"
-        )}\n` +
+        `  ${chalk.cyan(program.name())} ${chalk.green("<project-directory>")}\n` +
         "For example:\n" +
         `  ${chalk.cyan(program.name())} ${chalk.green("my-next-app")}\n\n` +
         `Run ${chalk.cyan(`${program.name()} --help`)} to see all options.`
@@ -138,9 +135,7 @@ async function run(): Promise<void> {
   }
 
   if (program.example === true) {
-    console.error(
-      "Please provide an example name or url, otherwise remove the example option."
-    );
+    console.error("Please provide an example name or url, otherwise remove the example option.");
     process.exit(1);
   }
 
@@ -155,12 +150,8 @@ async function run(): Promise<void> {
     process.exit(1);
   }
 
-  let template =
-    typeof program.template === "string" && program.template.trim();
-  const preferences = (conf.get("preferences") || {}) as Record<
-    string,
-    boolean | string
-  >;
+  let template = typeof program.template === "string" && program.template.trim();
+  const preferences = (conf.get("preferences") || {}) as Record<string, boolean | string>;
   /**
    * If the user does not provide the necessary flags, prompt them for which
    * template to use.
@@ -410,8 +401,8 @@ async function notifyUpdate(): Promise<void> {
         packageManager === "yarn"
           ? "yarn global add create-next-app"
           : packageManager === "pnpm"
-          ? "pnpm add -g create-next-app"
-          : "npm i -g create-next-app";
+            ? "pnpm add -g create-next-app"
+            : "npm i -g create-next-app";
 
       console.log(
         chalk.yellow.bold("A new version of `create-next-app` is available!") +
@@ -435,10 +426,7 @@ run()
     if (reason.command) {
       console.log(`  ${chalk.cyan(reason.command)} has failed.`);
     } else {
-      console.log(
-        chalk.red("Unexpected error. Please report it as a bug:") + "\n",
-        reason
-      );
+      console.log(chalk.red("Unexpected error. Please report it as a bug:") + "\n", reason);
     }
     console.log();
 

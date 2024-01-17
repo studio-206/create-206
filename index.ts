@@ -1,18 +1,19 @@
 #!/usr/bin/env node
+
 /* eslint-disable import/no-extraneous-dependencies */
+import { createApp, DownloadError } from "./create-app";
+import { getPkgManager } from "./helpers/get-pkg-manager";
+import { isFolderEmpty } from "./helpers/is-folder-empty";
+import { validateNpmName } from "./helpers/validate-pkg";
+import packageJson from "./package.json";
 import chalk from "chalk";
+import ciInfo from "ci-info";
 import Commander from "commander";
 import Conf from "conf";
+import fs from "fs";
 import path from "path";
 import prompts from "prompts";
 import checkForUpdate from "update-check";
-import { createApp, DownloadError } from "./create-app";
-import { getPkgManager } from "./helpers/get-pkg-manager";
-import { validateNpmName } from "./helpers/validate-pkg";
-import packageJson from "./package.json";
-import ciInfo from "ci-info";
-import { isFolderEmpty } from "./helpers/is-folder-empty";
-import fs from "fs";
 
 let projectPath: string = "";
 
@@ -70,10 +71,10 @@ const program = new Commander.Command(packageJson.name)
 const packageManager = !!program.useNpm
   ? "npm"
   : !!program.usePnpm
-    ? "pnpm"
-    : !!program.useYarn
-      ? "yarn"
-      : getPkgManager();
+  ? "pnpm"
+  : !!program.useYarn
+  ? "yarn"
+  : getPkgManager();
 
 async function run(): Promise<void> {
   const conf = new Conf({ projectName: "create-next-app" });
@@ -402,8 +403,8 @@ async function notifyUpdate(): Promise<void> {
         packageManager === "yarn"
           ? "yarn global add create-next-app"
           : packageManager === "pnpm"
-            ? "pnpm add -g create-next-app"
-            : "npm i -g create-next-app";
+          ? "pnpm add -g create-next-app"
+          : "npm i -g create-next-app";
 
       console.log(
         chalk.yellow.bold("A new version of `create-next-app` is available!") +

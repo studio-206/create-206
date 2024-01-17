@@ -1,8 +1,4 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import retry from "async-retry";
-import chalk from "chalk";
-import fs from "fs";
-import path from "path";
 import {
   downloadAndExtractExample,
   downloadAndExtractRepo,
@@ -17,6 +13,10 @@ import { isFolderEmpty } from "./helpers/is-folder-empty";
 import { getOnline } from "./helpers/is-online";
 import { isWriteable } from "./helpers/is-writeable";
 import { makeDir } from "./helpers/make-dir";
+import retry from "async-retry";
+import chalk from "chalk";
+import fs from "fs";
+import path from "path";
 
 export class DownloadError extends Error {}
 
@@ -48,8 +48,8 @@ export async function createApp({
       if (repoUrl.origin !== "https://github.com") {
         console.error(
           `Invalid URL: ${chalk.red(
-            `"${example}"`
-          )}. Only GitHub repositories are supported. Please use a GitHub URL and try again.`
+            `"${example}"`,
+          )}. Only GitHub repositories are supported. Please use a GitHub URL and try again.`,
         );
         process.exit(1);
       }
@@ -59,8 +59,8 @@ export async function createApp({
       if (!repoInfo) {
         console.error(
           `Found invalid GitHub URL: ${chalk.red(
-            `"${example}"`
-          )}. Please fix the URL and try again.`
+            `"${example}"`,
+          )}. Please fix the URL and try again.`,
         );
         process.exit(1);
       }
@@ -70,8 +70,8 @@ export async function createApp({
       if (!found) {
         console.error(
           `Could not locate the repository for ${chalk.red(
-            `"${example}"`
-          )}. Please check that the repository exists and try again.`
+            `"${example}"`,
+          )}. Please check that the repository exists and try again.`,
         );
         process.exit(1);
       }
@@ -81,12 +81,10 @@ export async function createApp({
       if (!found) {
         console.error(
           `Could not locate a template named ${chalk.red(
-            `"${example}"`
+            `"${example}"`,
           )}. It could be due to the following:\n`,
-          `1. Your spelling of template ${chalk.red(
-            `"${example}"`
-          )} might be incorrect.\n`,
-          `2. You might not be connected to the internet or you are behind a proxy.`
+          `1. Your spelling of template ${chalk.red(`"${example}"`)} might be incorrect.\n`,
+          `2. You might not be connected to the internet or you are behind a proxy.`,
         );
         process.exit(1);
       }
@@ -97,11 +95,9 @@ export async function createApp({
 
   if (!(await isWriteable(path.dirname(root)))) {
     console.error(
-      "The application path is not writable, please check folder permissions and try again."
+      "The application path is not writable, please check folder permissions and try again.",
     );
-    console.error(
-      "It is likely you do not have write permissions for this folder."
-    );
+    console.error("It is likely you do not have write permissions for this folder.");
     process.exit(1);
   }
 
@@ -132,9 +128,7 @@ export async function createApp({
       if (repoInfo) {
         const repoInfo2 = repoInfo;
         console.log(
-          `Downloading files from repo ${chalk.cyan(
-            example
-          )}. This might take a moment.`
+          `Downloading files from repo ${chalk.cyan(example)}. This might take a moment.`,
         );
         console.log();
         await retry(() => downloadAndExtractRepo(root, repoInfo2), {
@@ -142,9 +136,7 @@ export async function createApp({
         });
       } else {
         console.log(
-          `Downloading files for example ${chalk.cyan(
-            example
-          )}. This might take a moment.`
+          `Downloading files for example ${chalk.cyan(example)}. This might take a moment.`,
         );
         console.log();
         await retry(() => downloadAndExtractExample(root, example), {
@@ -160,9 +152,7 @@ export async function createApp({
         );
       }
       console.error(reason);
-      throw new DownloadError(
-        isErrorLike(reason) ? reason.message : reason + ""
-      );
+      throw new DownloadError(isErrorLike(reason) ? reason.message : reason + "");
     }
     // Copy `.gitignore` if the application did not provide one
     // const ignorePath = path.join(root, ".gitignore");
@@ -232,9 +222,7 @@ export async function createApp({
     console.log(chalk.cyan(`  ${packageManager} ${useYarn ? "" : "run "}dev`));
     console.log("    Starts the development server.");
     console.log();
-    console.log(
-      chalk.cyan(`  ${packageManager} ${useYarn ? "" : "run "}build`)
-    );
+    console.log(chalk.cyan(`  ${packageManager} ${useYarn ? "" : "run "}build`));
     console.log("    Builds the app for production.");
     console.log();
     console.log(chalk.cyan(`  ${packageManager} start`));
@@ -243,9 +231,7 @@ export async function createApp({
     console.log("We suggest that you begin by typing:");
     console.log();
     console.log(chalk.cyan("  cd"), cdpath);
-    console.log(
-      `  ${chalk.cyan(`${packageManager} ${useYarn ? "" : "run "}dev`)}`
-    );
+    console.log(`  ${chalk.cyan(`${packageManager} ${useYarn ? "" : "run "}dev`)}`);
   }
   console.log();
 }

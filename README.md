@@ -1,77 +1,36 @@
-# Create Studio 206 App
+# Create 206 App.
 
-The easiest way to get started with the Studio 206 stack is by using `create-206-app`. This CLI tool enables you to quickly start building a new Studio 206 application, with everything set up for you. You can create a new app using the default Next.js template, or by using one of the [Studio 206 templates](https://github.com/studio-206/create-206/tree/main/templates). To get started, use the following command:
+This is a custom fork from Next.js `create-next-app`. We've fined tuned it to building applications with our preferred application stack at https://studio206.dev.
 
-### Interactive
+You can see the templates we use in [./templates](https://github.com/studio-206/create-206/tree/main/templates)
 
-You can create a new project interactively by running:
+- `default`
+  - Standard Bare Bones Next.js App.
+    - Choose between App / Pages router.
+- `with-sanity` (coming soon)
+  - Choose between App/Pages router
+  - Generic Sanity Setup
+- `with-sanity-shopify` (coming soon)
+  - Choose between App/Pages router
+  - Generic Sanity Setup
+  - Shopify Integration
 
-```bash
-npx create-206-app@latest
-# or
-yarn create 206-app
-# or
-pnpm create 206-app
-```
+## Contributing
 
-You will be asked for the name of your project, and then whether you want to
-create a TypeScript project:
+### Running locally
 
-```bash
-✔ Would you like to use TypeScript with this project? … No / Yes
-```
-
-Select **Yes** to install the necessary types/dependencies and create a new TS project.
-
-### Non-interactive
-
-You can also pass command line arguments to set up a new project
-non-interactively. See `create-206-app --help`:
-
-```bash
-create-206-app <project-directory> [options]
-
-Options:
-  -V, --version                      output the version number
-  --ts, --typescript
-
-    Initialize as a TypeScript project. (default)
-
-  --js, --javascript
-
-    Initialize as a JavaScript project.
-
-  --use-npm
-
-    Explicitly tell the CLI to bootstrap the app using npm
-
-  --use-pnpm
-
-    Explicitly tell the CLI to bootstrap the app using pnpm
-
-  --use-yarn
-
-    Explicitly tell the CLI to bootstrap the app using Yarn
-
-  -e, --example [name]|[github-url]
-
-    An example to bootstrap the app with. You can use an example name
-    from the official Next.js repo or a GitHub URL. The URL can use
-    any branch and/or subdirectory
-
-  --example-path <path-to-example>
-
-    In a rare case, your GitHub URL might contain a branch name with
-    a slash (e.g. bug/fix-1) and the path to the example (e.g. foo/bar).
-    In this case, you must specify the path to the example separately:
-    --example-path foo/bar
-```
-
-### Why use Create Studio 206 app?
-
-`create-206-app` allows you to create a new Studio 206 app within seconds. It is officially maintained by the creators of Next.js, and includes a number of benefits:
-
-- **Interactive Experience**: Running `npx create-206-app@latest` (with no arguments) launches an interactive experience that guides you through setting up a project.
-- **Zero Dependencies**: Initializing a project is as quick as one second. Create Studio 206 app has zero dependencies.
-- **Offline Support**: Create Studio 206 app will automatically detect if you're offline and bootstrap your project using your local package cache.
-- **Support for Templates**: Create Studio 206 app can bootstrap your application using an example from the Studio 206 templates collection (e.g. `npx create-206-app --example with-sanity`).
+1. Clone the repo:
+   ```
+   git clone git@github.com:studio-206/create-206.git
+   ```
+2. Install deps:
+   ```
+   pnpm i
+   ```
+3. To install locally, you can run in the directory root.
+   ```
+   npm link
+   ```
+   - Now you can run `npx create-206-app` - this is the bin script defined in `package.json`
+   - Confirm this is installed globally by running `npm ls -g`, you _should_ `create-206-app` in the list.
+   - You will have to run `build` and re-link after changes. (To be optimised this?)

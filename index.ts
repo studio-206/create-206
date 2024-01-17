@@ -168,18 +168,6 @@ async function run(): Promise<void> {
           title: "Default",
           value: "default",
         },
-        {
-          title: "Sanity CMS",
-          value: "with-sanity",
-        },
-        {
-          title: "Shopify",
-          value: "with-shopify",
-        },
-        {
-          title: "Shopify and Sanity CMS",
-          value: "with-shopify-and-sanity",
-        },
       ],
     });
 

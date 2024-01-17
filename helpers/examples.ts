@@ -122,7 +122,7 @@ export async function downloadAndExtractExample(
   await tar.x({
     file: tempFile,
     cwd: root,
-    strip: 2 + name.split("/").length,
+    strip: 2 + name.split("/").length + routerName.split("/").length,
     filter: p =>
       p.includes(`create-206-${defaultedBranch.replace("/", "-")}/templates/${name}/${routerName}`),
   });

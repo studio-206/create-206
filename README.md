@@ -33,4 +33,4 @@ You can see the templates we use in [./templates](https://github.com/studio-206/
    ```
    - Now you can run `npx create-206-app` - this is the bin script defined in `package.json`
    - Confirm this is installed globally by running `npm ls -g`, you _should_ see `create-206-app` in the list.
-   - You will have to run `build` and re-link after changes. (To be optimised this?)
+   - Run `npm/yarn/pnpm run dev` to watch for changes.

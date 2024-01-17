@@ -125,7 +125,7 @@ export async function downloadAndExtractExample(
     strip: 2 + name.split("/").length,
     filter: p =>
       p.includes(
-        `create-206-${defaultedBranch.replace("/", "-")}/templates/${routerName}/${name}/`,
+        `create-206-${defaultedBranch.replace("/", "-")}/templates/${name}/${routerName}/`,
       ),
   });
 

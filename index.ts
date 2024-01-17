@@ -357,11 +357,59 @@ async function run(): Promise<void> {
     // }
   }
 
+  let nextRouter: "app" | "pages" | null = null;
+
+  /**
+   * Allow the user to select a Next router if the template has both
+   */
+  if (template) {
+    const templatePath = path.join(__dirname, "templates", template, "apps", "web", "src");
+    const templateHasApp = fs.existsSync(path.join(templatePath, "app"));
+    const templateHasPages = fs.existsSync(path.join(templatePath, "pages"));
+
+    if (templateHasApp && !templateHasPages) {
+      nextRouter = "app";
+      console.log("Template has next app router but no pages, using app router");
+    }
+
+    if (!templateHasApp && templateHasPages) {
+      nextRouter = "pages";
+      console.log("Template has pages but no next app router, using pages");
+    }
+
+    if (templateHasApp && templateHasPages) {
+      const { router } = await prompts({
+        type: "select",
+        name: "router",
+        message: "Select a router",
+        choices: [
+          {
+            title: "Next App Router",
+            value: "app",
+          },
+          {
+            title: "Next Pages Router",
+            value: "pages",
+          },
+        ],
+      });
+
+      nextRouter = router;
+    }
+
+    if (!templateHasApp && !templateHasPages) {
+      console.log("Template has no next app router or pages, using app");
+      nextRouter = "app";
+    }
+  }
+
   try {
-    console.log(template);
     await createApp({
       appPath: resolvedProjectPath,
       example: template ? template : undefined,
+      options: {
+        nextRouter: nextRouter || "app",
+      },
     });
   } catch (reason) {
     if (!(reason instanceof DownloadError)) {

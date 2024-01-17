@@ -1,4 +1,8 @@
-/* eslint-disable import/no-extraneous-dependencies */
+import retry from "async-retry";
+import chalk from "chalk";
+import fs from "fs";
+import path from "path";
+
 import {
   downloadAndExtractExample,
   downloadAndExtractRepo,
@@ -12,11 +16,6 @@ import { install } from "./helpers/install";
 import { isFolderEmpty } from "./helpers/is-folder-empty";
 import { getOnline } from "./helpers/is-online";
 import { isWriteable } from "./helpers/is-writeable";
-import { makeDir } from "./helpers/make-dir";
-import retry from "async-retry";
-import chalk from "chalk";
-import fs from "fs";
-import path from "path";
 
 export class DownloadError extends Error {}
 
@@ -44,6 +43,7 @@ export async function createApp({
 
     try {
       repoUrl = new URL(example);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       if (error.code !== "ERR_INVALID_URL") {
         console.error(error);
@@ -91,7 +91,7 @@ export async function createApp({
             `"${example}"`,
           )}. It could be due to the following:\n`,
           `1. Your spelling of template ${chalk.red(`"${example}"`)} might be incorrect.\n`,
-          `2. You might not be connected to the internet or you are behind a proxy.`,
+          "2. You might not be connected to the internet or you are behind a proxy.",
         );
         process.exit(1);
       }
@@ -110,7 +110,8 @@ export async function createApp({
 
   const appName = path.basename(root);
 
-  await makeDir(root);
+  fs.mkdirSync(root, { recursive: true });
+
   if (!isFolderEmpty(root, appName)) {
     process.exit(1);
   }
@@ -154,6 +155,8 @@ export async function createApp({
         );
       }
     } catch (reason) {
+      // TODO:
+      // eslint-disable-next-line no-inner-declarations
       function isErrorLike(err: unknown): err is { message: string } {
         return (
           typeof err === "object" &&
@@ -164,23 +167,6 @@ export async function createApp({
       console.error(reason);
       throw new DownloadError(isErrorLike(reason) ? reason.message : reason + "");
     }
-    // Copy `.gitignore` if the application did not provide one
-    // const ignorePath = path.join(root, ".gitignore");
-    // if (!fs.existsSync(ignorePath)) {
-    //   fs.copyFileSync(
-    //     getTemplateFile({ template, mode, file: "gitignore" }),
-    //     ignorePath
-    //   );
-    // }
-
-    // Copy `next-env.d.ts` to any example that is typescript
-    // const tsconfigPath = path.join(root, "tsconfig.json");
-    // if (fs.existsSync(tsconfigPath)) {
-    //   fs.copyFileSync(
-    //     getTemplateFile({ template, mode: "ts", file: "next-env.d.ts" }),
-    //     path.join(root, "next-env.d.ts")
-    //   );
-    // }
 
     hasPackageJson = fs.existsSync(packageJsonPath);
     if (hasPackageJson) {
@@ -191,25 +177,8 @@ export async function createApp({
       console.log();
     }
   } else {
-    /**
-     * If an example repository is not provided for cloning, proceed
-     * by installing from a template.
-     */
     console.error("You need to specify an example to create the app from.");
     process.exit(1);
-
-    // await installTemplate({
-    //   appName,
-    //   root,
-    //   template,
-    //   mode,
-    //   packageManager,
-    //   isOnline,
-    //   tailwind,
-    //   eslint,
-    //   srcDir,
-    //   importAlias,
-    // });
   }
 
   if (tryGitInit(root)) {

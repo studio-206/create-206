@@ -1,13 +1,12 @@
 #!/usr/bin/env node
 
-/* eslint-disable import/no-extraneous-dependencies */
 import { createApp, DownloadError } from "./create-app";
 import { getPkgManager } from "./helpers/get-pkg-manager";
 import { isFolderEmpty } from "./helpers/is-folder-empty";
 import { validateNpmName } from "./helpers/validate-pkg";
 import packageJson from "./package.json";
 import chalk from "chalk";
-import ciInfo from "ci-info";
+
 import Commander from "commander";
 import Conf from "conf";
 import fs from "fs";
@@ -22,6 +21,7 @@ const handleSigTerm = () => process.exit(0);
 process.on("SIGINT", handleSigTerm);
 process.on("SIGTERM", handleSigTerm);
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const onPromptState = (state: any) => {
   if (state.aborted) {
     // If we don't re-enable the terminal cursor before exiting
@@ -85,7 +85,7 @@ async function run(): Promise<void> {
 
   if (program.resetPreferences) {
     conf.clear();
-    console.log(`Preferences reset successfully`);
+    console.log("Preferences reset successfully");
     return;
   }
 
@@ -172,196 +172,10 @@ async function run(): Promise<void> {
           title: "Default",
           value: "default",
         },
-        {
-          title: "Sanity CMS",
-          value: "with-sanity",
-          disable: true,
-        },
-        {
-          title: "Shopify",
-          value: "with-shopify",
-          disable: true,
-        },
-        {
-          title: "Shopify and Sanity CMS",
-          value: "with-shopify-and-sanity",
-          disable: true,
-        },
       ],
     });
 
     template = selectedTemplate;
-
-    // const defaults: typeof preferences = {
-    //   typescript: true,
-    //   eslint: true,
-    //   tailwind: true,
-    //   srcDir: false,
-    //   importAlias: "@/*",
-    //   customizeImportAlias: false,
-    // };
-    // const getPrefOrDefault = (field: string) =>
-    //   preferences[field] ?? defaults[field];
-
-    // if (!program.typescript && !program.javascript) {
-    //   if (ciInfo.isCI) {
-    //     // default to JavaScript in CI as we can't prompt to
-    //     // prevent breaking setup flows
-    //     program.typescript = false;
-    //     program.javascript = true;
-    //   } else {
-    //     const styledTypeScript = chalk.hex("#007acc")("TypeScript");
-    //     const { typescript } = await prompts(
-    //       {
-    //         type: "toggle",
-    //         name: "typescript",
-    //         message: `Would you like to use ${styledTypeScript} with this project?`,
-    //         initial: getPrefOrDefault("typescript"),
-    //         active: "Yes",
-    //         inactive: "No",
-    //       },
-    //       {
-    //         /**
-    //          * User inputs Ctrl+C or Ctrl+D to exit the prompt. We should close the
-    //          * process and not write to the file system.
-    //          */
-    //         onCancel: () => {
-    //           console.error("Exiting.");
-    //           process.exit(1);
-    //         },
-    //       }
-    //     );
-    //     /**
-    //      * Depending on the prompt response, set the appropriate program flags.
-    //      */
-    //     program.typescript = Boolean(typescript);
-    //     program.javascript = !Boolean(typescript);
-    //     preferences.typescript = Boolean(typescript);
-    //   }
-    // }
-
-    // if (
-    //   !process.argv.includes("--eslint") &&
-    //   !process.argv.includes("--no-eslint")
-    // ) {
-    //   if (ciInfo.isCI) {
-    //     program.eslint = true;
-    //   } else {
-    //     const styledEslint = chalk.hex("#007acc")("ESLint");
-    //     const { eslint } = await prompts({
-    //       onState: onPromptState,
-    //       type: "toggle",
-    //       name: "eslint",
-    //       message: `Would you like to use ${styledEslint} with this project?`,
-    //       initial: getPrefOrDefault("eslint"),
-    //       active: "Yes",
-    //       inactive: "No",
-    //     });
-    //     program.eslint = Boolean(eslint);
-    //     preferences.eslint = Boolean(eslint);
-    //   }
-    // }
-
-    // if (
-    //   !process.argv.includes("--tailwind") &&
-    //   !process.argv.includes("--no-tailwind")
-    // ) {
-    //   if (ciInfo.isCI) {
-    //     program.tailwind = false;
-    //   } else {
-    //     const tw = chalk.hex("#007acc")("Tailwind CSS");
-    //     const { tailwind } = await prompts({
-    //       onState: onPromptState,
-    //       type: "toggle",
-    //       name: "tailwind",
-    //       message: `Would you like to use ${tw} with this project?`,
-    //       initial: getPrefOrDefault("tailwind"),
-    //       active: "Yes",
-    //       inactive: "No",
-    //     });
-    //     program.tailwind = Boolean(tailwind);
-    //     preferences.tailwind = Boolean(tailwind);
-    //   }
-    // }
-
-    // if (
-    //   !process.argv.includes("--src-dir") &&
-    //   !process.argv.includes("--no-src-dir")
-    // ) {
-    //   if (ciInfo.isCI) {
-    //     program.srcDir = false;
-    //   } else {
-    //     const styledSrcDir = chalk.hex("#007acc")("`src/` directory");
-    //     const { srcDir } = await prompts({
-    //       onState: onPromptState,
-    //       type: "toggle",
-    //       name: "srcDir",
-    //       message: `Would you like to use ${styledSrcDir} with this project?`,
-    //       initial: getPrefOrDefault("srcDir"),
-    //       active: "Yes",
-    //       inactive: "No",
-    //     });
-    //     program.srcDir = Boolean(srcDir);
-    //     preferences.srcDir = Boolean(srcDir);
-    //   }
-    // }
-
-    // if (!process.argv.includes("--app") && !process.argv.includes("--no-app")) {
-    //   if (ciInfo.isCI) {
-    //     program.app = true;
-    //   } else {
-    //     const styledAppDir = chalk.hex("#007acc")("App Router");
-    //     const { appRouter } = await prompts({
-    //       onState: onPromptState,
-    //       type: "toggle",
-    //       name: "appRouter",
-    //       message: `Use ${styledAppDir} (recommended)?`,
-    //       initial: true,
-    //       active: "Yes",
-    //       inactive: "No",
-    //     });
-    //     program.app = Boolean(appRouter);
-    //   }
-    // }
-
-    // if (
-    //   typeof program.importAlias !== "string" ||
-    //   !program.importAlias.length
-    // ) {
-    //   if (ciInfo.isCI) {
-    //     program.importAlias = "@/*";
-    //   } else {
-    //     const styledImportAlias = chalk.hex("#007acc")("import alias");
-
-    //     const { customizeImportAlias } = await prompts({
-    //       onState: onPromptState,
-    //       type: "toggle",
-    //       name: "customizeImportAlias",
-    //       message: `Would you like to customize the default ${styledImportAlias}?`,
-    //       initial: getPrefOrDefault("customizeImportAlias"),
-    //       active: "Yes",
-    //       inactive: "No",
-    //     });
-
-    //     if (!customizeImportAlias) {
-    //       program.importAlias = "@/*";
-    //     } else {
-    //       const { importAlias } = await prompts({
-    //         onState: onPromptState,
-    //         type: "text",
-    //         name: "importAlias",
-    //         message: `What ${styledImportAlias} would you like configured?`,
-    //         initial: getPrefOrDefault("importAlias"),
-    //         validate: (value) =>
-    //           /.+\/\*/.test(value)
-    //             ? true
-    //             : "Import alias must follow the pattern <prefix>/*",
-    //       });
-    //       program.importAlias = importAlias;
-    //       preferences.importAlias = importAlias;
-    //     }
-    //   }
-    // }
   }
 
   let nextRouter: "app" | "pages" | null = null;
@@ -405,27 +219,7 @@ async function run(): Promise<void> {
       throw reason;
     }
 
-    // const res = await prompts({
-    //   onState: onPromptState,
-    //   type: "confirm",
-    //   name: "builtin",
-    //   message:
-    //     `Could not download "${example}" because of a connectivity issue between your machine and GitHub.\n` +
-    //     `Do you want to use the default template instead?`,
-    //   initial: true,
-    // });
     throw reason;
-
-    // await createApp({
-    //   appPath: resolvedProjectPath,
-    //   packageManager,
-    //   typescript: program.typescript,
-    //   eslint: program.eslint,
-    //   tailwind: program.tailwind,
-    //   appRouter: program.app,
-    //   srcDir: program.srcDir,
-    //   importAlias: program.importAlias,
-    // });
   }
   conf.set("preferences", preferences);
 }

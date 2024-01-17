@@ -99,7 +99,12 @@ export async function downloadAndExtractRepo(
   await fs.unlink(tempFile);
 }
 
-export async function downloadAndExtractExample(root: string, name: string, branch: string | null) {
+export async function downloadAndExtractExample(
+  root: string,
+  name: string,
+  branch: string | null,
+  routerType: "app" | "pages",
+) {
   if (name === "__internal-testing-retry") {
     throw new Error("This is an internal example for testing the CLI.");
   }
@@ -109,11 +114,19 @@ export async function downloadAndExtractExample(root: string, name: string, bran
     `https://codeload.github.com/studio-206/create-206/tar.gz/${defaultedBranch}`,
   );
 
+  const routerName = {
+    app: "appRouter",
+    pages: "pagesRouter",
+  }[routerType];
+
   await tar.x({
     file: tempFile,
     cwd: root,
     strip: 2 + name.split("/").length,
-    filter: p => p.includes(`create-206-${defaultedBranch.replace("/", "-")}/templates/${name}/`),
+    filter: p =>
+      p.includes(
+        `create-206-${defaultedBranch.replace("/", "-")}/templates/${routerName}/${name}/`,
+      ),
   });
 
   await fs.unlink(tempFile);

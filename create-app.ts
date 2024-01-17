@@ -146,9 +146,12 @@ export async function createApp({
           `Downloading files for example ${chalk.cyan(example)}. This might take a moment.`,
         );
         console.log();
-        await retry(() => downloadAndExtractExample(root, example, customBranch), {
-          retries: 3,
-        });
+        await retry(
+          () => downloadAndExtractExample(root, example, customBranch, nextRouter || "pages"),
+          {
+            retries: 3,
+          },
+        );
       }
     } catch (reason) {
       function isErrorLike(err: unknown): err is { message: string } {

@@ -65,6 +65,10 @@ const program = new Commander.Command(packageJson.name)
   Explicitly tell the CLI to reset any stored preferences
 `,
   )
+  .option(
+    "--branch <branch>",
+    "Specify a branch other than the repo's main branch to use as a starting point",
+  )
   .allowUnknownOption()
   .parse(process.argv);
 
@@ -363,45 +367,26 @@ async function run(): Promise<void> {
    * Allow the user to select a Next router if the template has both
    */
   if (template) {
-    const templatePath = path.join(__dirname, "templates", template, "apps", "web", "src");
-    const templateHasApp = fs.existsSync(path.join(templatePath, "app"));
-    const templateHasPages = fs.existsSync(path.join(templatePath, "pages"));
+    const { router } = await prompts({
+      type: "select",
+      name: "router",
+      message: "Select a router (if router is available)",
+      choices: [
+        {
+          title: "Next App Router",
+          value: "app",
+        },
+        {
+          title: "Next Pages Router",
+          value: "pages",
+        },
+      ],
+    });
 
-    if (templateHasApp && !templateHasPages) {
-      nextRouter = "app";
-      console.log("Template has next app router but no pages, using app router");
-    }
-
-    if (!templateHasApp && templateHasPages) {
-      nextRouter = "pages";
-      console.log("Template has pages but no next app router, using pages");
-    }
-
-    if (templateHasApp && templateHasPages) {
-      const { router } = await prompts({
-        type: "select",
-        name: "router",
-        message: "Select a router",
-        choices: [
-          {
-            title: "Next App Router",
-            value: "app",
-          },
-          {
-            title: "Next Pages Router",
-            value: "pages",
-          },
-        ],
-      });
-
-      nextRouter = router;
-    }
-
-    if (!templateHasApp && !templateHasPages) {
-      console.log("Template has no next app router or pages, using app");
-      nextRouter = "app";
-    }
+    nextRouter = router;
   }
+
+  const customBranch = program.branch || null;
 
   try {
     await createApp({
@@ -409,6 +394,7 @@ async function run(): Promise<void> {
       example: template ? template : undefined,
       options: {
         nextRouter: nextRouter || "app",
+        customBranch: customBranch,
       },
     });
   } catch (reason) {

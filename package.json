@@ -21,7 +21,7 @@
   ],
   "scripts": {
     "dev": "ncc build ./index.ts -w -o dist/",
-    "test-script": "npm run remove-my-app && ts-node index.ts",
+    "test-script": "npm run remove-my-app && cr",
     "remove-my-app": "rm -rf my-app",
     "prerelease": "rm -rf dist",
     "release": "ncc build ./index.ts -o ./dist/ --minify --no-cache --no-source-map-register",

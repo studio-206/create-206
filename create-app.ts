@@ -20,16 +20,21 @@ import path from "path";
 
 export class DownloadError extends Error {}
 
+type CreateAppOptions = {
+  nextRouter?: "app" | "pages";
+  customBranch?: string | null;
+};
+
 export async function createApp({
   appPath,
   example,
   examplePath,
-  options: { nextRouter },
+  options: { nextRouter, customBranch = null },
 }: {
   appPath: string;
   example?: string;
   examplePath?: string;
-  options: { nextRouter?: "app" | "pages" };
+  options: CreateAppOptions;
 }): Promise<void> {
   let repoInfo: RepoInfo | undefined;
   const packageManager = "yarn";
@@ -141,7 +146,7 @@ export async function createApp({
           `Downloading files for example ${chalk.cyan(example)}. This might take a moment.`,
         );
         console.log();
-        await retry(() => downloadAndExtractExample(root, example), {
+        await retry(() => downloadAndExtractExample(root, example, customBranch), {
           retries: 3,
         });
       }

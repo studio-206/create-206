@@ -67,7 +67,9 @@ const program = new Commander.Command(packageJson.name)
   )
   .option(
     "--branch <branch>",
-    "Specify a branch other than the repo's main branch to use as a starting point",
+    `Specify a branch other than the repo's main branch to download a 
+    template from. This is useful for downloading testing a template 
+    that is not yet merged into the main branch.`,
   )
   .allowUnknownOption()
   .parse(process.argv);

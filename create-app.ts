@@ -19,14 +19,20 @@ import { isWriteable } from "./helpers/is-writeable";
 
 export class DownloadError extends Error {}
 
+type CreateAppOptions = {
+  customBranch: string;
+};
+
 export async function createApp({
   appPath,
   example,
   examplePath,
+  options: { customBranch },
 }: {
   appPath: string;
   example?: string;
   examplePath?: string;
+  options: CreateAppOptions;
 }): Promise<void> {
   let repoInfo: RepoInfo | undefined;
   const packageManager = "yarn";
@@ -76,7 +82,7 @@ export async function createApp({
         process.exit(1);
       }
     } else if (example !== "__internal-testing-retry") {
-      const found = await existsInRepo(example);
+      const found = await existsInRepo(example, customBranch);
 
       if (!found) {
         console.error(
@@ -140,7 +146,7 @@ export async function createApp({
           `Downloading files for example ${chalk.cyan(example)}. This might take a moment.`,
         );
         console.log();
-        await retry(() => downloadAndExtractExample(root, example), {
+        await retry(() => downloadAndExtractExample(root, example, customBranch), {
           retries: 3,
         });
       }

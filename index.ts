@@ -65,6 +65,13 @@ const program = new Commander.Command(packageJson.name)
   Explicitly tell the CLI to reset any stored preferences
 `,
   )
+  .option(
+    "--branch <branch>",
+    `Specify a branch other than the repo's main branch to download a 
+    template from. This is useful for downloading testing a template 
+    that is not yet merged into the main branch.`,
+    "main",
+  )
   .allowUnknownOption()
   .parse(process.argv);
 
@@ -165,8 +172,12 @@ async function run(): Promise<void> {
       message: "Select a template",
       choices: [
         {
-          title: "Default",
-          value: "default",
+          title: "Default (Pages)",
+          value: "default-pages",
+        },
+        {
+          title: "Default (App)",
+          value: "default-app",
         },
       ],
     });
@@ -175,10 +186,12 @@ async function run(): Promise<void> {
   }
 
   try {
-    console.log(template);
     await createApp({
       appPath: resolvedProjectPath,
       example: template ? template : undefined,
+      options: {
+        customBranch: program.branch,
+      },
     });
   } catch (reason) {
     if (!(reason instanceof DownloadError)) {

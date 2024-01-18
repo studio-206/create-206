@@ -50,3 +50,6 @@ test-timings.json
 *.tsbuildinfo
 .swc/
 .turbo
+
+# Default output 
+my-app

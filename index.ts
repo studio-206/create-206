@@ -178,31 +178,6 @@ async function run(): Promise<void> {
     template = selectedTemplate;
   }
 
-  let nextRouter: "app" | "pages" | null = null;
-
-  /**
-   * Allow the user to select a Next router if the template has both
-   */
-  if (template) {
-    const { router } = await prompts({
-      type: "select",
-      name: "router",
-      message: "Select a router (if router is available)",
-      choices: [
-        {
-          title: "Next App Router",
-          value: "app",
-        },
-        {
-          title: "Next Pages Router",
-          value: "pages",
-        },
-      ],
-    });
-
-    nextRouter = router;
-  }
-
   const customBranch = program.branch || null;
 
   try {
@@ -210,7 +185,6 @@ async function run(): Promise<void> {
       appPath: resolvedProjectPath,
       example: template ? template : undefined,
       options: {
-        nextRouter: nextRouter || "app",
         customBranch: customBranch,
       },
     });

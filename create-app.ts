@@ -20,7 +20,6 @@ import { isWriteable } from "./helpers/is-writeable";
 export class DownloadError extends Error {}
 
 type CreateAppOptions = {
-  nextRouter?: "app" | "pages";
   customBranch?: string | null;
 };
 
@@ -28,7 +27,7 @@ export async function createApp({
   appPath,
   example,
   examplePath,
-  options: { nextRouter, customBranch = null },
+  options: { customBranch = null },
 }: {
   appPath: string;
   example?: string;
@@ -147,12 +146,9 @@ export async function createApp({
           `Downloading files for example ${chalk.cyan(example)}. This might take a moment.`,
         );
         console.log();
-        await retry(
-          () => downloadAndExtractExample(root, example, customBranch, nextRouter || "pages"),
-          {
-            retries: 3,
-          },
-        );
+        await retry(() => downloadAndExtractExample(root, example, customBranch), {
+          retries: 3,
+        });
       }
     } catch (reason) {
       // TODO:

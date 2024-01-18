@@ -20,14 +20,14 @@ import { isWriteable } from "./helpers/is-writeable";
 export class DownloadError extends Error {}
 
 type CreateAppOptions = {
-  customBranch?: string | null;
+  customBranch: string;
 };
 
 export async function createApp({
   appPath,
   example,
   examplePath,
-  options: { customBranch = null },
+  options: { customBranch },
 }: {
   appPath: string;
   example?: string;

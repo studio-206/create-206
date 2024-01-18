@@ -1,6 +1,6 @@
-import type { ReactElement } from "react";
-import type { AppProps } from "next/app";
 import "../styles/globals.css";
+import type { AppProps } from "next/app";
+import type { ReactElement } from "react";
 
 export type NextPageWithLayout = AppProps["Component"] & {
   getLayout?: (page: ReactElement) => ReactElement;

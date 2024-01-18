@@ -78,6 +78,9 @@ importers:
       '@sanity/overlays':
         specifier: ^2.3.6
         version: 2.3.6
+      '@sanity/preview-url-secret':
+        specifier: ^1.5.2
+        version: 1.5.2(@sanity/client@6.11.1)
       '@sanity/react-loader':
         specifier: ^1.7.4
         version: 1.7.4(@sanity/client@6.11.1)(react@18.2.0)

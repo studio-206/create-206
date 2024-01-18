@@ -11,8 +11,6 @@ const devOnlyPlugins = [visionTool()];
 
 const previewUrl = "http://localhost:3000";
 
-console.log("HEY", process.env);
-
 export default defineConfig({
   name: "default",
   title: "Sanity Pages Template",

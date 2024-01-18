@@ -72,6 +72,9 @@ importers:
 
   apps/web:
     dependencies:
+      '@portabletext/react':
+        specifier: ^3.0.11
+        version: 3.0.11(react@18.2.0)
       '@sanity/client':
         specifier: ^6.11.1
         version: 6.11.1

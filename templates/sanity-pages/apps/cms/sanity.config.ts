@@ -22,7 +22,13 @@ export default defineConfig({
   plugins: [
     structureTool({ structure: deskStructure }),
     ...(isDev ? devOnlyPlugins : []),
-    presentationTool({ previewUrl, locate }),
+    presentationTool({
+      previewUrl: {
+        draftMode: {
+          enable: `${previewUrl}/api/draft`,
+        },
+      },
+    }),
   ],
 
   schema: {

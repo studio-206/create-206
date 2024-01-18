@@ -1,18 +1,29 @@
-import "../styles/globals.css";
-import type { AppProps } from "next/app";
-import type { ReactElement } from "react";
+// ./src/pages/_app.tsx
 
-export type NextPageWithLayout = AppProps["Component"] & {
-  getLayout?: (page: ReactElement) => ReactElement;
-};
+import "@/styles/globals.css";
 
-type AppPropsWithLayout = AppProps & {
-  Component: NextPageWithLayout;
-};
+import { AppProps } from "next/app";
+import { lazy, Suspense } from "react";
 
-export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
-  // Use the layout defined at the page level, if available. Else fall back to the default `<Layout />`.
-  // Basically we can override the default layout if we want to.
+export interface SharedPageProps {
+  draftMode: boolean;
+  token: string;
+}
 
-  return <Component {...pageProps} />;
+const PreviewProvider = lazy(() => import("@/components/PreviewProvider"));
+const VisualEditing = lazy(() => import("@/components/VisualEditing"));
+
+export default function App({ Component, pageProps }: AppProps<SharedPageProps>) {
+  const { draftMode, token } = pageProps;
+
+  return draftMode ? (
+    <PreviewProvider token={token}>
+      <Component {...pageProps} />
+      <Suspense>
+        <VisualEditing />
+      </Suspense>
+    </PreviewProvider>
+  ) : (
+    <Component {...pageProps} />
+  );
 }

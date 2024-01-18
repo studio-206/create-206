@@ -10,7 +10,7 @@ export function getClient(previewToken?: string): SanityClient {
     perspective: previewToken ? "previewDrafts" : "published",
     stega: {
       enabled: previewToken ? true : false,
-      studioUrl: "/studio",
+      studioUrl: "localhost:3333",
     },
     token: previewToken,
   });

@@ -6,6 +6,7 @@ import { getClient } from "@/sanity/client";
 import { token } from "@/sanity/token";
 import { POSTS_QUERY } from "@/sanity/queries";
 import Posts from "@/components/Posts";
+import PostsPreview from "@/components/PostsPreview";
 
 type PageProps = {
   posts: SanityDocument[];
@@ -14,7 +15,7 @@ type PageProps = {
 };
 
 export default function Home(props: PageProps) {
-  return <Posts posts={props.posts} />;
+  return props.draftMode ? <PostsPreview posts={props.posts} /> : <Posts posts={props.posts} />;
 }
 
 export const getStaticProps = async ({ draftMode = false }) => {
@@ -24,7 +25,7 @@ export const getStaticProps = async ({ draftMode = false }) => {
     props: {
       posts,
       draftMode,
-      token: draftMode ? "" : "",
+      token: draftMode ? token : "",
     },
   };
 };

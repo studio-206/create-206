@@ -1,6 +1,8 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "globalDependencies": ["**/.env.*local"],
+  "globalEnv": ["SANITY_API_READ_TOKEN"],
+  "globalDotEnv": [".env"],
   "pipeline": {
     "build": {
       "dependsOn": ["^build"],

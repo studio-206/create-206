@@ -70,6 +70,7 @@ const program = new Commander.Command(packageJson.name)
     `Specify a branch other than the repo's main branch to download a 
     template from. This is useful for downloading testing a template 
     that is not yet merged into the main branch.`,
+    "main",
   )
   .allowUnknownOption()
   .parse(process.argv);
@@ -180,14 +181,12 @@ async function run(): Promise<void> {
     template = selectedTemplate;
   }
 
-  const customBranch = program.branch || null;
-
   try {
     await createApp({
       appPath: resolvedProjectPath,
       example: template ? template : undefined,
       options: {
-        customBranch: customBranch,
+        customBranch: program.branch,
       },
     });
   } catch (reason) {

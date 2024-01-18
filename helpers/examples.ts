@@ -99,21 +99,20 @@ export async function downloadAndExtractRepo(
   await fs.unlink(tempFile);
 }
 
-export async function downloadAndExtractExample(root: string, name: string, branch: string | null) {
+export async function downloadAndExtractExample(root: string, name: string, branch: string) {
   if (name === "__internal-testing-retry") {
     throw new Error("This is an internal example for testing the CLI.");
   }
-  const defaultedBranch = branch || "main";
 
   const tempFile = await downloadTar(
-    `https://codeload.github.com/studio-206/create-206/tar.gz/${defaultedBranch}`,
+    `https://codeload.github.com/studio-206/create-206/tar.gz/${branch}`,
   );
 
   await tar.x({
     file: tempFile,
     cwd: root,
     strip: 2 + name.split("/").length,
-    filter: p => p.includes(`create-206-${defaultedBranch.replace("/", "-")}/templates/${name}`),
+    filter: p => p.includes(`create-206-${branch.replace("/", "-")}/templates/${name}`),
   });
 
   await fs.unlink(tempFile);

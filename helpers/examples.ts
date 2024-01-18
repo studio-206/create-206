@@ -61,7 +61,9 @@ export function hasRepo({ username, name, branch, filePath }: RepoInfo): Promise
   return isUrlOk(contentsUrl + packagePath + `?ref=${branch}`);
 }
 
-export function existsInRepo(nameOrUrl: string): Promise<boolean> {
+export function existsInRepo(nameOrUrl: string, branch: string): Promise<boolean> {
+  const branchPath = branch ? `?ref=${branch}` : "";
+
   try {
     const url = new URL(nameOrUrl);
     return isUrlOk(url.href);
@@ -69,7 +71,7 @@ export function existsInRepo(nameOrUrl: string): Promise<boolean> {
     return isUrlOk(
       `https://api.github.com/repos/studio-206/create-206/contents/templates/${encodeURIComponent(
         nameOrUrl,
-      )}`,
+      )}${branchPath}`,
     );
   }
 }

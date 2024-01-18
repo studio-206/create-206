@@ -172,8 +172,12 @@ async function run(): Promise<void> {
       message: "Select a template",
       choices: [
         {
-          title: "Default",
-          value: "default",
+          title: "Default (Pages)",
+          value: "default-pages",
+        },
+        {
+          title: "Default (App)",
+          value: "default-app",
         },
       ],
     });

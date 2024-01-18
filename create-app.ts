@@ -82,7 +82,7 @@ export async function createApp({
         process.exit(1);
       }
     } else if (example !== "__internal-testing-retry") {
-      const found = await existsInRepo(example);
+      const found = await existsInRepo(example, customBranch);
 
       if (!found) {
         console.error(

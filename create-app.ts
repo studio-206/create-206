@@ -35,7 +35,7 @@ export async function createApp({
   options: CreateAppOptions;
 }): Promise<void> {
   let repoInfo: RepoInfo | undefined;
-  const packageManager = "yarn";
+  const packageManager = "pnpm";
 
   if (example) {
     let repoUrl: URL | undefined;
@@ -115,7 +115,7 @@ export async function createApp({
     process.exit(1);
   }
 
-  const useYarn = packageManager === "yarn";
+  const useYarn = false;
   const isOnline = !useYarn || (await getOnline());
   const originalDirectory = process.cwd();
 

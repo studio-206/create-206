@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import { createWriteStream, promises as fs } from "fs";
 import got from "got";
 import { tmpdir } from "os";

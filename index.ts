@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
 import { createApp, DownloadError } from "./create-app";
-import { getPkgManager } from "./helpers/get-pkg-manager";
 import { isFolderEmpty } from "./helpers/is-folder-empty";
 import { validateNpmName } from "./helpers/validate-pkg";
 import packageJson from "./package.json";
@@ -74,14 +73,6 @@ const program = new Commander.Command(packageJson.name)
   )
   .allowUnknownOption()
   .parse(process.argv);
-
-const packageManager = !!program.useNpm
-  ? "npm"
-  : !!program.usePnpm
-    ? "pnpm"
-    : !!program.useYarn
-      ? "yarn"
-      : getPkgManager();
 
 async function run(): Promise<void> {
   const conf = new Conf({ projectName: "create-next-app" });
@@ -209,15 +200,10 @@ async function notifyUpdate(): Promise<void> {
   try {
     const res = await update;
     if (res?.latest) {
-      const updateMessage =
-        packageManager === "yarn"
-          ? "yarn global add create-next-app"
-          : packageManager === "pnpm"
-            ? "pnpm add -g create-next-app"
-            : "npm i -g create-next-app";
+      const updateMessage = "pnpm add -g create-206-app";
 
       console.log(
-        chalk.yellow.bold("A new version of `create-next-app` is available!") +
+        chalk.yellow.bold("A new version of `create-206-app` is available!") +
           "\n" +
           "You can update by running: " +
           chalk.cyan(updateMessage) +

@@ -18,7 +18,7 @@ export default function SinglePost(props: PageProps) {
   return props.draftMode ? (
     <PostPreview post={props.post} params={props.params} />
   ) : (
-    <Post post={props.post} />
+    <Post data={props.post} />
   );
 }
 

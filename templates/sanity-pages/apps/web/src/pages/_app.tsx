@@ -10,8 +10,8 @@ export interface SharedPageProps {
   token: string;
 }
 
-const PreviewProvider = lazy(() => import("@/components/PreviewProvider"));
-const VisualEditing = lazy(() => import("@/components/VisualEditing"));
+const PreviewProvider = lazy(() => import("@/components/sanity/PreviewProvider"));
+const VisualEditing = lazy(() => import("@/components/sanity/VisualEditing"));
 
 export default function App({ Component, pageProps }: AppProps<SharedPageProps>) {
   const { draftMode, token } = pageProps;

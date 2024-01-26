@@ -1,6 +1,6 @@
 import { GetStaticPaths, InferGetStaticPropsType } from "next";
 
-import Post from "@/components/Post";
+import Post from "@/components/pageComponents/Post";
 import { POST_QUERY, POSTS_SLUG_QUERY } from "@/sanity/queries";
 import { token } from "@/sanity/token";
 import { getClient } from "@/sanity/client";

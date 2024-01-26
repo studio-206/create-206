@@ -8,7 +8,7 @@ import { POSTS_QUERY } from "@/sanity/queries";
 
 import { InferGetStaticPropsType } from "next";
 import { LiveQueryWrapper } from "@/components/sanity/LivePreviewWrapper";
-import Posts from "@/components/Posts";
+import Posts from "@/components/pageComponents/Posts";
 
 export default function Home(props: InferGetStaticPropsType<typeof getStaticProps>) {
   const isEnabled = props.draftMode;

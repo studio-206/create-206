@@ -23,6 +23,7 @@ export default defineConfig({
     structureTool({ structure: deskStructure }),
     ...(isDev ? devOnlyPlugins : []),
     presentationTool({
+      locate,
       previewUrl: {
         draftMode: {
           enable: `${previewUrl}/api/draft`,

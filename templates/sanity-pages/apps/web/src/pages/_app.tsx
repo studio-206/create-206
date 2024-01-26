@@ -18,6 +18,9 @@ export default function App({ Component, pageProps }: AppProps<SharedPageProps>)
 
   return draftMode ? (
     <PreviewProvider token={token}>
+      <a href="/api/disable-draft" className="fixed bottom-4 right-4 z-50 bg-red-500 p-2 shadow-lg">
+        Exit live preview
+      </a>
       <Component {...pageProps} />
       <Suspense>
         <VisualEditing />

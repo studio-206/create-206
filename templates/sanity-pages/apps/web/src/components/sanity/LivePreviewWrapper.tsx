@@ -4,13 +4,22 @@ import { PropsWithChildren } from "react";
 import { LiveQueryData } from "./LiveQueryData";
 
 type PreviewWrapperProps<T> = PropsWithChildren<{
+  /**
+   * This should be an object which takes the properties as the child component
+   *  */
   initialData: T;
   isEnabled?: boolean;
   query?: string;
   params?: QueryParams;
 }>;
 
-// Component just renders its children if preview mode is not enabled
+/**
+ *  # IMPORTANT
+ *  The child component needs to have a data prop which is what the query puts its results into
+ *
+ *  Component just renders its children if preview mode is not enabled
+ *  Otherwise, it renders the children with live data
+ **/
 export function LiveQueryWrapper<T>(props: PreviewWrapperProps<T>) {
   const {
     // Is live query mode active?

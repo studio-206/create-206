@@ -15,7 +15,7 @@ export default function SinglePost(props: InferGetStaticPropsType<typeof getStat
       query={POST_QUERY}
       params={props.params}
       initialData={{ data: props.post }}>
-      <Post />
+      <Post data={props.post} />
     </LiveQueryWrapper>
   );
 }

@@ -1,6 +1,7 @@
 import { Slot } from "@radix-ui/react-slot";
 import { QueryParams } from "@sanity/client";
-import { QueryResponseInitial, useQuery } from "@sanity/react-loader";
+import { QueryResponseInitial } from "@sanity/react-loader";
+import { useLiveQuery } from "next-sanity/preview";
 import { PropsWithChildren } from "react";
 
 type PreviewDataProps<T = any> = PropsWithChildren<{
@@ -12,7 +13,7 @@ type PreviewDataProps<T = any> = PropsWithChildren<{
 // Browser-only preview component
 export function LiveQueryData<T = any>(props: PreviewDataProps<T>) {
   const { initial, query, params = {}, ...rest } = props;
-  const { data } = useQuery<T>(query, params, { initial });
+  const [data] = useLiveQuery(initial, query, params);
 
   const previewProps = { ...rest, data };
 

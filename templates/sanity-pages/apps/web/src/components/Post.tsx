@@ -1,7 +1,12 @@
 import { SanityDocument } from "next-sanity";
 import { PortableText } from "@portabletext/react";
 
-export default function Post({ data }: { data: SanityDocument }) {
+export default function Post({ data }: { data?: SanityDocument }) {
+  if (!data) {
+    console.log(`Post data empty`);
+    return null;
+  }
+
   const { title, body } = data;
 
   return (

@@ -1,30 +1,28 @@
-import { QueryParams, SanityDocument } from "next-sanity";
-import { GetStaticPaths } from "next";
+import { GetStaticPaths, InferGetStaticPropsType } from "next";
 
 import Post from "@/components/Post";
-import PostPreview from "@/components/PostPreview";
 import { POST_QUERY, POSTS_SLUG_QUERY } from "@/sanity/queries";
 import { token } from "@/sanity/token";
 import { getClient } from "@/sanity/client";
+import { LiveQueryWrapper } from "@/components/sanity/LivePreviewWrapper";
 
-type PageProps = {
-  post: SanityDocument;
-  params: QueryParams;
-  draftMode: boolean;
-  token: string;
-};
-
-export default function SinglePost(props: PageProps) {
-  return props.draftMode ? (
-    <PostPreview post={props.post} params={props.params} />
-  ) : (
-    <Post data={props.post} />
+export default function SinglePost(props: InferGetStaticPropsType<typeof getStaticProps>) {
+  const isEnabled = props.draftMode;
+  return (
+    <LiveQueryWrapper
+      isEnabled={isEnabled}
+      query={POST_QUERY}
+      params={props.params}
+      initial={props.post}>
+      <Post />
+    </LiveQueryWrapper>
   );
 }
 
 export const getStaticProps = async ({ params = {}, draftMode = false }) => {
   const client = getClient(draftMode ? token : undefined);
-  const post = await client.fetch<SanityDocument>(POST_QUERY, params);
+
+  const post = await client.fetch(POST_QUERY, params);
 
   return {
     props: {

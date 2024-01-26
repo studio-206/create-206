@@ -1,0 +1,34 @@
+{
+  "name": "web",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@portabletext/react": "^3.0.11",
+    "@radix-ui/react-slot": "^1.0.2",
+    "@sanity/client": "^6.11.1",
+    "@sanity/overlays": "^2.3.6",
+    "@sanity/preview-url-secret": "^1.5.2",
+    "@sanity/react-loader": "^1.7.4",
+    "@types/node": "20.2.5",
+    "@types/react": "18.2.9",
+    "@types/react-dom": "18.2.4",
+    "autoprefixer": "^10.4.13",
+    "eslint-config-studio-206": "*",
+    "next": "13.4.4",
+    "next-sanity": "^7.0.10",
+    "postcss": "^8.4.20",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "tailwind-config": "*",
+    "tailwind-variants": "^0.1.6",
+    "tailwindcss": "^3.2.4",
+    "tsconfig": "workspace:*",
+    "typescript": "5.1.3"
+  }
+}

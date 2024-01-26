@@ -170,6 +170,10 @@ async function run(): Promise<void> {
           title: "Default (App)",
           value: "default-app",
         },
+        {
+          title: "Sanity + Next.js (Pages)",
+          value: "sanity-pages",
+        },
       ],
     });
 

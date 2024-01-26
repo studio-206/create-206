@@ -9,5 +9,5 @@ import { POSTS_QUERY } from "@/sanity/queries";
 export default function PostsPreview({ posts = [] }: { posts: SanityDocument[] }) {
   const [data] = useLiveQuery<SanityDocument[]>(posts, POSTS_QUERY);
 
-  return <Posts posts={data} />;
+  return <Posts data={data} />;
 }

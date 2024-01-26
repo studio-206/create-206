@@ -8,12 +8,13 @@ import { LiveQueryWrapper } from "@/components/sanity/LivePreviewWrapper";
 
 export default function SinglePost(props: InferGetStaticPropsType<typeof getStaticProps>) {
   const isEnabled = props.draftMode;
+
   return (
     <LiveQueryWrapper
       isEnabled={isEnabled}
       query={POST_QUERY}
       params={props.params}
-      initial={props.post}>
+      initialData={{ data: props.post }}>
       <Post />
     </LiveQueryWrapper>
   );

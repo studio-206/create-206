@@ -1,13 +1,10 @@
-// ./components/LiveQueryWrapper.tsx
-
 import { Slot } from "@radix-ui/react-slot";
 import { QueryParams } from "@sanity/client";
-import { QueryResponseInitial } from "@sanity/react-loader";
 import { PropsWithChildren } from "react";
 import { LiveQueryData } from "./LiveQueryData";
 
 type PreviewWrapperProps<T> = PropsWithChildren<{
-  initial: QueryResponseInitial<T>;
+  initialData: T;
   isEnabled?: boolean;
   query?: string;
   params?: QueryParams;
@@ -28,14 +25,14 @@ export function LiveQueryWrapper<T>(props: PreviewWrapperProps<T>) {
 
   // Render child, with the wrapper's initial data and props
   if (!isEnabled || !query) {
-    const nonPreviewProps = { ...rest, data: props.initial.data };
+    const nonPreviewProps = { ...rest, ...props.initialData };
 
     return <Slot {...nonPreviewProps} />;
   }
 
   // Swap initialData for live data
   return (
-    <LiveQueryData<typeof props.initial.data> initial={props.initial} query={query} params={params}>
+    <LiveQueryData initialData={props.initialData} query={query} params={params}>
       {props.children}
     </LiveQueryData>
   );

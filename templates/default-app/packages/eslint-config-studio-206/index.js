@@ -1,3 +1,3 @@
 module.exports = {
-  extends: ["@studio206/eslint-config"]
+  extends: ["next", "@studio206/eslint-config"]
 };

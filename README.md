@@ -54,3 +54,9 @@ npx create-206-app --branch <branch-with-changes>
 ```
 
 This downloads and runs the template from the specified branch, rather than main.
+
+## Updating Shared Config.
+
+Shared code that is used across multiple templates is kept in the `./shared` directory, this is if a package or app needs to be copied to multiple templates, see `./shared/tools/copy-eslint-config.ts` for example. It takes `eslint-config-studio-206` and copies the directory to each template as the code does not change for these.
+
+Run `npx ts-node ./tools/copy-eslint-config` to run.

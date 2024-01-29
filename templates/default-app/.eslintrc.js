@@ -7,4 +7,10 @@ module.exports = {
       rootDir: ["apps/*/"],
     },
   },
+  // These parserOptions fix the following issue: https://github.com/vercel/next.js/issues/40687
+  parserOptions: {
+    babelOptions: {
+      presets: [require.resolve("next/babel")],
+    },
+  },
 };

@@ -1,18 +1,6 @@
 module.exports = {
-  extends: [
-    "next",
-    "turbo",
-    "prettier",
-    "eslint:recommended",
-    "plugin:@typescript-eslint/recommended",
-  ],
-  rules: {
-    "@next/next/no-html-link-for-pages": "off",
-    indent: ["error", 2, { SwitchCase: 1 }],
-    quotes: ["error", "double"],
-    "@typescript-eslint/no-unused-vars": ["error"],
-    "no-console": "off",
-  },
+  extends: ["next", "@studio206/eslint-config"],
+  // These parserOptions fix the following issue: https://github.com/vercel/next.js/issues/40687
   parserOptions: {
     babelOptions: {
       presets: [require.resolve("next/babel")],

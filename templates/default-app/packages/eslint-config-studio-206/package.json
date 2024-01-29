@@ -5,7 +5,8 @@
   "license": "MIT",
   "dependencies": {
     "eslint-config-next": "14.1.0",
-    "@studio206/eslint-config": "latest"
+    "@studio206/eslint-config": "latest",
+    "next": "14.1.0"
   },
   "publishConfig": {
     "access": "public"

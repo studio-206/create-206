@@ -1,17 +1,18 @@
 #!/usr/bin/env node
 
-import { createApp, DownloadError } from "./create-app";
-import { isFolderEmpty } from "./helpers/is-folder-empty";
-import { validateNpmName } from "./helpers/validate-pkg";
-import packageJson from "./package.json";
+import { execSync } from "child_process";
 import chalk from "chalk";
-
+import checkForUpdate from "update-check";
 import Commander from "commander";
 import Conf from "conf";
 import fs from "fs";
 import path from "path";
 import prompts from "prompts";
-import checkForUpdate from "update-check";
+
+import { createApp, DownloadError } from "./create-app";
+import { isFolderEmpty } from "./helpers/is-folder-empty";
+import { validateNpmName } from "./helpers/validate-pkg";
+import packageJson from "./package.json";
 
 let projectPath: string = "";
 
@@ -65,8 +66,14 @@ const program = new Commander.Command(packageJson.name)
 `,
   )
   .option(
+    "-b, --branch-current",
+    `
+    Use the current branch instead of main.
+    `,
+  )
+  .option(
     "--branch <branch>",
-    `Specify a branch other than the repo's main branch to download a 
+    `Specify a branch other than the main branch to download a 
     template from. This is useful for downloading testing a template 
     that is not yet merged into the main branch.`,
     "main",
@@ -134,11 +141,6 @@ async function run(): Promise<void> {
     process.exit(1);
   }
 
-  if (program.example === true) {
-    console.error("Please provide an example name or url, otherwise remove the example option.");
-    process.exit(1);
-  }
-
   /**
    * Verify the project dir is empty or doesn't exist
    */
@@ -180,12 +182,20 @@ async function run(): Promise<void> {
     template = selectedTemplate;
   }
 
+  /**
+   * Determine which branch to use.
+   */
+  let branch = program.branch;
+  if (program.branchCurrent) {
+    branch = execSync("git rev-parse --abbrev-ref HEAD").toString().trim();
+  }
+
   try {
     await createApp({
       appPath: resolvedProjectPath,
       example: template ? template : undefined,
       options: {
-        customBranch: program.branch,
+        branch,
       },
     });
   } catch (reason) {

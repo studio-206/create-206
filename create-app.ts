@@ -16,24 +16,27 @@ import { install } from "./helpers/install";
 import { isFolderEmpty } from "./helpers/is-folder-empty";
 import { getOnline } from "./helpers/is-online";
 import { isWriteable } from "./helpers/is-writeable";
+import { logBranch } from "./helpers/logs";
 
 export class DownloadError extends Error {}
 
 type CreateAppOptions = {
-  customBranch: string;
+  branch: string;
 };
 
 export async function createApp({
   appPath,
   example,
   examplePath,
-  options: { customBranch },
+  options: { branch },
 }: {
   appPath: string;
   example?: string;
   examplePath?: string;
   options: CreateAppOptions;
 }): Promise<void> {
+  logBranch(branch);
+
   let repoInfo: RepoInfo | undefined;
   const packageManager = "pnpm";
 
@@ -82,7 +85,7 @@ export async function createApp({
         process.exit(1);
       }
     } else if (example !== "__internal-testing-retry") {
-      const found = await existsInRepo(example, customBranch);
+      const found = await existsInRepo(example, branch);
 
       if (!found) {
         console.error(
@@ -146,7 +149,7 @@ export async function createApp({
           `Downloading files for example ${chalk.cyan(example)}. This might take a moment.`,
         );
         console.log();
-        await retry(() => downloadAndExtractExample(root, example, customBranch), {
+        await retry(() => downloadAndExtractExample(root, example, branch), {
           retries: 3,
         });
       }

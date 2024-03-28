@@ -4,7 +4,7 @@ import { SanityDocument } from "next-sanity";
 
 import { getClient } from "@/sanity/client";
 import { token } from "@/sanity/token";
-import { POSTS_QUERY } from "@/sanity/queries";
+import { POSTS_QUERY, SETTINGS_QUERY } from "@/sanity/queries";
 
 import { InferGetStaticPropsType } from "next";
 import { LiveQueryWrapper } from "@/components/sanity/LivePreviewWrapper";
@@ -23,9 +23,12 @@ export default function Home(props: InferGetStaticPropsType<typeof getStaticProp
 export const getStaticProps = async ({ draftMode = false }) => {
   const client = getClient(draftMode ? token : undefined);
   const posts = await client.fetch<SanityDocument[]>(POSTS_QUERY);
+  const settings = await client.fetch<SanityDocument[]>(SETTINGS_QUERY);
+
   return {
     props: {
       posts,
+      settings,
       draftMode,
       token: draftMode ? token : "",
     },

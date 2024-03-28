@@ -7,12 +7,11 @@
  */
 
 import fs from "fs-extra";
-
-const templateSlugs = ["default-app", "default-pages", "sanity-pages"];
+import { templateSlugs } from "./constants";
 
 const makeDir = (slug: string) => `./templates/${slug}/packages/eslint-config-studio-206`;
 
 templateSlugs.forEach(slug => {
-  fs.copySync("./shared/eslint-config-studio-206", makeDir(slug));
+  fs.copySync("./shared/src/eslint-config-studio-206", makeDir(slug));
   console.log("Updating eslint-config for", slug);
 });

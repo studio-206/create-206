@@ -5,8 +5,6 @@ export const metadata: Metadata = {
   title: "Studio 206 Template",
 };
 
-// testing husky
-
 export default function Home() {
   return (
     <div className="bg-zinc-900 flex min-h-screen flex-col items-center justify-center py-2">

@@ -3,6 +3,7 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Studio 206 Template",
+  description: "",
 };
 
 export default function Home() {

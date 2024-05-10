@@ -9,7 +9,7 @@ import { locate } from "./lib/locate";
 
 const devOnlyPlugins = [visionTool()];
 
-const previewUrl = "http://localhost:3000";
+const previewUrl = process.env.SANITY_STUDIO_PREVIEW_URL;
 
 export default defineConfig({
   name: "default",

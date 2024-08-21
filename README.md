@@ -61,3 +61,8 @@ Shared code that is used across multiple templates is kept in the `./shared` dir
 
 - Run `npx ts-node ./shared/tools/copy-eslint-config` to run.
 - Run `npx ts-node ./shared/tools/copy-prettierrc` to run.
+
+## Publishing updates
+
+- Bump the version in the `package.json`.
+- Run `npm publish` in the root folder (make sure to have all the publishing rights in the [studio206 npm org](https://www.npmjs.com/org/studio206).)

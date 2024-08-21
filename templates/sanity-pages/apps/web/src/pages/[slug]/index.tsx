@@ -15,7 +15,8 @@ export default function SinglePost(props: InferGetStaticPropsType<typeof getStat
       isEnabled={isEnabled}
       query={POST_QUERY}
       params={props.params}
-      initialData={{ data: props.post }}>
+      initialData={{ data: props.post }}
+    >
       <Post data={props.post} />
     </LiveQueryWrapper>
   );
@@ -42,5 +43,5 @@ export const getStaticProps = async ({ params = {}, draftMode = false }) => {
 export const getStaticPaths: GetStaticPaths = async () => {
   const paths = await getClient().fetch(POSTS_SLUG_QUERY);
 
-  return { paths, fallback: true };
+  return { paths, fallback: "blocking" };
 };

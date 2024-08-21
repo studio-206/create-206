@@ -1,3 +1,5 @@
+import { isValidSlug } from "../utils/slug-validation";
+
 import { defineField, defineType } from "sanity";
 
 export default defineType({
@@ -15,9 +17,16 @@ export default defineType({
       title: "Slug",
       type: "slug",
       options: {
-        source: "name",
+        source: "title",
         maxLength: 96,
       },
+      validation: (Rule) =>
+        Rule.required().custom((value: { current: string }) => {
+          if (!isValidSlug(value?.current)) return "The slug has to have a valid format.";
+
+          return true;
+        }),
+      group: "editorial",
     }),
     defineField({
       name: "image",

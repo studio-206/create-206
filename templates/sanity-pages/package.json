@@ -10,6 +10,7 @@
     "check-types": "turbo check-types"
   },
   "devDependencies": {
+    "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "dotenv-cli": "^7.3.0",
     "eslint": "^7.32.0",
     "eslint-config-studio-206": "*",

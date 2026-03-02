@@ -31,10 +31,12 @@ test/tmp/**
 test/.trace
 test/traces
 
+
 # Editors
 **/.idea
 **/.#*
 .nvmrc
+.npmrc
 
 # templates
 templates/**/out

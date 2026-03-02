@@ -15,17 +15,17 @@
     "sanity"
   ],
   "dependencies": {
-    "@sanity/icons": "^2.10.2",
-    "@sanity/vision": "^3.25.0",
+    "@sanity/icons": "^3.7.4",
+    "@sanity/vision": "^5.12.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-is": "^18.2.0",
     "rxjs": "^7.8.1",
-    "sanity": "^3.25.0",
+    "sanity": "^5.12.0",
     "styled-components": "^6.0.7"
   },
   "devDependencies": {
-    "@sanity/eslint-config-studio": "^3.0.1",
+    "@sanity/eslint-config-studio": "^6.0.0",
     "@types/react": "^18.0.25",
     "eslint": "^8.6.0",
     "prettier": "^3.0.2",

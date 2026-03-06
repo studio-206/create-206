@@ -174,6 +174,10 @@ async function run(): Promise<void> {
           title: "Sanity + Next.js (Pages)",
           value: "sanity-pages",
         },
+        {
+          title: "Shopify + Sanity + Next.js (Pages)",
+          value: "shopify-sanity-pages",
+        },
       ],
     });
 

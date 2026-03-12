@@ -8,7 +8,13 @@ export const formatPrice = (price: string) => {
   }).format(parseFloat(price) || 0);
 };
 
-export const priceFormat = (contentPrice) => {
+export type PriceInput =
+  | string
+  | number
+  | number[]
+  | { minVariantPrice?: number; maxVariantPrice?: number };
+
+export const priceFormat = (contentPrice: PriceInput): string | null => {
   const price = {
     minVariantPrice: null,
     maxVariantPrice: null,

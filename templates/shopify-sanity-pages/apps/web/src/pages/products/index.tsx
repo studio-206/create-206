@@ -7,7 +7,7 @@ import { PRODUCTS_PAGE_QUERY, PRODUCTS_QUERY } from "@/sanity/queries";
 import { token } from "@/sanity/token";
 
 import { LiveQueryWrapper } from "@/components/sanity/LivePreviewWrapper";
-import { ProductsPageTemplate } from "@/components/templates/ProductsPageTempate";
+import { ProductsPageTemplate } from "@/components/templates/ProductsPageTemplate";
 
 import { getProduct } from "@/shopify/queries";
 import {

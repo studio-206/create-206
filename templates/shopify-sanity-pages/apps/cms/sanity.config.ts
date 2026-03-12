@@ -13,7 +13,7 @@ const previewUrl = process.env.SANITY_STUDIO_PREVIEW_URL;
 
 export default defineConfig({
   name: "default",
-  title: "Sanity Pages Template",
+  title: "Shopify + Sanity Pages Template",
 
   projectId: process.env.SANITY_STUDIO_SANITY_PROJECT_ID || "",
   dataset: process.env.SANITY_STUDIO_SANITY_DATASET || "",

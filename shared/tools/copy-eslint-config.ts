@@ -4,6 +4,7 @@
  * - `./templates/default-app/packages/eslint-config-studio-206`
  * - `./templates/default-pages/packages/eslint-config-studio-206`
  * - `./templates/sanity-pages/packages/eslint-config-studio-206`
+ * - `./templates/shopify-sanity-pages/packages/eslint-config-studio-206`
  */
 
 import fs from "fs-extra";

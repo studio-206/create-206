@@ -4,6 +4,7 @@
  * - `./templates/default-app/.prettierrc`
  * - `./templates/default-pages/.prettierrc`
  * - `./templates/sanity-pages/.prettierrc`
+ * - `./templates/shopify-sanity-pages/.prettierrc`
  */
 
 import fs from "fs-extra";

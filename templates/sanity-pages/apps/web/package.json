@@ -22,7 +22,7 @@
     "autoprefixer": "^10.4.13",
     "blurhash": "^2.0.5",
     "eslint-config-studio-206": "*",
-    "next": "13.4.4",
+    "next": "15.5.28",
     "next-sanity": "^7.0.10",
     "next-sanity-image": "^6.1.1",
     "postcss": "^8.4.20",
